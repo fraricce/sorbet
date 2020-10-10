@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -33,6 +35,26 @@ func main() {
 	for key, element := range m {
 		fmt.Println("Key:", key, "=>", "Element:", element)
 	}
+
+	rand.Seed(time.Now().UnixNano())
+
+	start := rand.Intn(len(all))
+	sentence := ""
+	currentWord := all[start]
+	loopUntil := 0
+
+	for {
+		choose := rand.Intn(len(m[currentWord]))
+		nextWord := m[currentWord][choose]
+		sentence += " " + nextWord
+		loopUntil++
+		if loopUntil == 5 {
+			break
+		}
+		currentWord = nextWord
+	}
+
+	fmt.Println(sentence)
 
 }
 
