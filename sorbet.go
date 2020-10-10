@@ -2,13 +2,20 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"strings"
 )
 
 func main() {
 	m := make(map[string][]string)
 
-	text := "The ship is going fast through the wind . The ship is great and is going far. The people onboard are pilgrims that want to go to America."
+	content, err := ioutil.ReadFile("c:\\dev\\sorbet\\input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	text := string(content)
 
 	all := strings.Split(text, " ")
 
