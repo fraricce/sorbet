@@ -41,14 +41,19 @@ func main() {
 	start := rand.Intn(len(all))
 	sentence := ""
 	currentWord := all[start]
-	loopUntil := 0
+	//loopUntil := 0
 
 	for {
 		choose := rand.Intn(len(m[currentWord]))
 		nextWord := m[currentWord][choose]
-		sentence += " " + nextWord
-		loopUntil++
-		if loopUntil == 5 {
+		if nextWord == "." || nextWord == "," {
+			sentence += nextWord
+		} else {
+			sentence += " " + nextWord
+		}
+
+		//loopUntil++
+		if nextWord == "." {
 			break
 		}
 		currentWord = nextWord
