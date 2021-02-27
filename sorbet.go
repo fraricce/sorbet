@@ -87,11 +87,17 @@ func main() {
 		}
 		choose := rand.Intn(l)
 		nextWord := m[currentWord][choose]
-		sentence += " " + nextWord
+
+		if nextWord == "." {
+			sentence += nextWord
+		} else {
+			sentence += " " + nextWord
+		}
 
 		if isEnd(nextWord) {
 			break
 		}
+
 		currentWord = nextWord
 	}
 
