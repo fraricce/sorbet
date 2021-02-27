@@ -24,8 +24,11 @@ func main() {
 
 	doc, err := prose.NewDocument(text)
 
+	all := []string{}
+
 	for _, tok := range doc.Tokens() {
 		fmt.Println(tok.Text, tok.Tag, tok.Label)
+		all = append(all, tok.Text)
 		// Go NNP B-GPE
 		// is VBZ O
 		// an DT O
@@ -36,9 +39,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	fmt.Println("-----:::" + all[0])
+
 	// second
 
-	all := strings.Split(text, " ")
+	//all := strings.Split(text, " ")
 
 	for j := 0; j < len(all); j++ {
 		if j == len(all)-1 {
@@ -61,6 +66,7 @@ func main() {
 	currentWord := ""
 
 	// looking for start
+
 	starters := []string{}
 
 	for _, sent := range doc.Tokens() {
@@ -71,6 +77,8 @@ func main() {
 
 	currentWord = starters[rand.Intn(len(starters))]
 	sentence := currentWord
+
+	// forming content
 
 	for {
 		l := len(m[currentWord])
@@ -92,5 +100,5 @@ func main() {
 
 func isEnd(word string) bool {
 	log.Print(strings.Index(word, "."))
-	return strings.Index(word, ".") == len(word)
+	return word == "."
 }
