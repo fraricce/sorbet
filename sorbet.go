@@ -51,6 +51,7 @@ func main() {
 		}
 	}
 
+	fmt.Println("Frequencies")
 	for key, element := range m {
 		fmt.Println("Key:", key, "=>", "Element:", element)
 	}
@@ -60,20 +61,18 @@ func main() {
 	currentWord := ""
 
 	// looking for start
+	starters := []string{}
+
 	for _, sent := range doc.Tokens() {
-		if sent.Text == "I" || sent.Tag == "NNP" {
-			currentWord = sent.Text
+		if sent.Tag == "NNP" || sent.Text == "I" {
+			starters = append(starters, sent.Text)
 		}
-		// I can see Mt. Fuji from here.
-		// St. Michael's Church is on 5th st. near the light.
 	}
 
+	currentWord = starters[rand.Intn(len(starters))]
 	sentence := currentWord
 
-	loopUntil := 0
-
 	for {
-		log.Print(">>>>" + currentWord)
 		l := len(m[currentWord])
 		if l == 0 {
 			break
@@ -82,7 +81,6 @@ func main() {
 		nextWord := m[currentWord][choose]
 		sentence += " " + nextWord
 
-		loopUntil++
 		if isEnd(nextWord) {
 			break
 		}
@@ -90,14 +88,9 @@ func main() {
 	}
 
 	fmt.Println(sentence)
-
 }
 
 func isEnd(word string) bool {
 	log.Print(strings.Index(word, "."))
 	return strings.Index(word, ".") == len(word)
 }
-
-// for i := range m["fish"] {
-// 	fmt.Println(i, m["fish"][i])
-// }
